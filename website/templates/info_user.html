@@ -13,28 +13,44 @@ extra_css %}
         <form>
             <div>
                 <label>Họ và tên đệm</label>
-                <input type="text" value="Nguyễn Thành" disabled />
+                <input
+                    type="text"
+                    value="{{ user_info.first_name }}"
+                    disabled
+                />
             </div>
             <div>
                 <label>Tên</label>
-                <input type="text" value="Trình" disabled />
+                <input type="text" value="{{ user_info.last_name }}" disabled />
             </div>
             <div>
                 <label>Email</label>
                 <div class="flex">
-                    <span>trinh020705@gmail.com</span>
+                    <span>{{ user_info.email }}</span>
                 </div>
             </div>
             <div>
                 <label>Số điện thoại</label>
                 <div class="flex">
-                    <span>0934889287</span>
+                    <span>{{ user_info.phone_number }}</span>
                 </div>
             </div>
             <div>
                 <label>Ngày sinh</label>
                 <div class="flex">
-                    <span>02/07/2005</span>
+                    <span
+                        >{{ user_info.date_of_birth.strftime('%d/%m/%Y')
+                        }}</span
+                    >
+                </div>
+            </div>
+            <div>
+                <label>Tổng chi tiêu</label>
+                <div class="flex">
+                    <span
+                        >{{ "{:,.0f}".format(user_info.total_spending) }}
+                        VNĐ</span
+                    >
                 </div>
             </div>
         </form>
@@ -43,41 +59,265 @@ extra_css %}
     <div class="address_user">
         <div class="header">
             <h1>Địa chỉ của tôi</h1>
-            <button>+ Thêm địa chỉ mới</button>
+            <button
+                onclick="document.getElementById('add-address-modal').style.display='block'"
+            >
+                + Thêm địa chỉ mới
+            </button>
         </div>
         <div class="address-list">
             <h2>Địa chỉ</h2>
+            {% for address in addresses %}
             <div class="address-item">
                 <div class="info">
-                    <h3>Nguyễn Thành Trinh</h3>
-                    <p>(+84) 934 889 287</p>
-                    <p>Chung Cư The East Gate, Số 43, Tân Lập</p>
-                    <p>Phường Đông Hòa, Thành Phố Dĩ An, Bình Dương</p>
+                    <h3>{{ address.home_number }}, {{ address.street }}</h3>
+                    <h3>
+                        {{ address.district }}, {{ address.city }}, {{
+                        address.province }}
+                    </h3>
                 </div>
                 <div class="edit">
+                    {% if address.is_default %}
                     <span class="default-badge">Mặc định</span>
-
+                    {% endif %}
                     <div class="actions">
-                        <a href="#">Xóa</a>
-                        <button>Thiết lập mặc định</button>
+                        <a
+                            href="#"
+                            onclick="openEditModal('{{ address.home_number }}', '{{ address.street }}', '{{ address.district }}', '{{ address.city }}', '{{ address.province }}')"
+                            >Sửa</a
+                        >
+                        <form
+                            action="{{ url_for('views.delete_address') }}"
+                            method="POST"
+                            style="display: inline"
+                        >
+                            <input
+                                type="hidden"
+                                name="home_number"
+                                value="{{ address.home_number }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="street"
+                                value="{{ address.street }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="district"
+                                value="{{ address.district }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="city"
+                                value="{{ address.city }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="province"
+                                value="{{ address.province }}"
+                            />
+                            <a href="#" onclick="this.parentElement.submit()"
+                                >Xóa</a
+                            >
+                        </form>
+                        {% if not address.is_default %}
+                        <form
+                            action="{{ url_for('views.set_default') }}"
+                            method="POST"
+                            style="display: inline"
+                        >
+                            <input
+                                type="hidden"
+                                name="home_number"
+                                value="{{ address.home_number }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="street"
+                                value="{{ address.street }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="district"
+                                value="{{ address.district }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="city"
+                                value="{{ address.city }}"
+                            />
+                            <input
+                                type="hidden"
+                                name="province"
+                                value="{{ address.province }}"
+                            />
+                            <button type="submit">Thiết lập mặc định</button>
+                        </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="address-item">
-                <div class="info">
-                    <h3>Nguyễn Thị Thu Trang</h3>
-                    <p>(+84) 982 403 229</p>
-                    <p>Số 165, Đống Đa</p>
-                    <p>Phường Thị Nại, Thành Phố Quy Nhơn, Bình Định</p>
-                </div>
-                <div class="edit">
-                    <div class="actions">
-                        <a href="#">Xóa</a>
-                        <button>Thiết lập mặc định</button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
+
+<!-- Modal thêm địa chỉ -->
+<div
+    id="add-address-modal"
+    style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    "
+>
+    <div
+        class="modal-content"
+        style="
+            background-color: white;
+            width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 8px;
+        "
+    >
+        <h2>Thêm địa chỉ mới</h2>
+        <form action="{{ url_for('views.add_address') }}" method="POST">
+            <div>
+                <label>Số nhà</label>
+                <input type="text" name="home_number" required />
+            </div>
+            <div>
+                <label>Đường</label>
+                <input type="text" name="street" required />
+            </div>
+            <div>
+                <label>Quận/Huyện/Phường</label>
+                <input type="text" name="district" required />
+            </div>
+            <div>
+                <label>Thành phố</label>
+                <input type="text" name="city" required />
+            </div>
+            <div>
+                <label>Tỉnh</label>
+                <input type="text" name="province" required />
+            </div>
+            <div>
+                <label>Đặt làm mặc định</label>
+                <input type="checkbox" name="is_default" />
+            </div>
+            <button type="submit">Thêm</button>
+            <button
+                type="button"
+                onclick="document.getElementById('add-address-modal').style.display='none'"
+            >
+                Hủy
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal sửa địa chỉ -->
+<div
+    id="edit-address-modal"
+    style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    "
+>
+    <div
+        class="modal-content"
+        style="
+            background-color: white;
+            width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 8px;
+        "
+    >
+        <h2>Sửa địa chỉ</h2>
+        <form action="{{ url_for('views.update_address') }}" method="POST">
+            <input
+                type="hidden"
+                name="old_home_number"
+                id="edit-old-home-number"
+            />
+            <input type="hidden" name="old_street" id="edit-old-street" />
+            <input type="hidden" name="old_district" id="edit-old-district" />
+            <input type="hidden" name="old_city" id="edit-old-city" />
+            <input type="hidden" name="old_province" id="edit-old-province" />
+            <div>
+                <label>Số nhà</label>
+                <input
+                    type="text"
+                    name="home_number"
+                    id="edit-home-number"
+                    required
+                />
+            </div>
+            <div>
+                <label>Đường</label>
+                <input type="text" name="street" id="edit-street" required />
+            </div>
+            <div>
+                <label>Quận/Huyện/Phường</label>
+                <input
+                    type="text"
+                    name="district"
+                    id="edit-district"
+                    required
+                />
+            </div>
+            <div>
+                <label>Thành phố</label>
+                <input type="text" name="city" id="edit-city" required />
+            </div>
+            <div>
+                <label>Tỉnh</label>
+                <input
+                    type="text"
+                    name="province"
+                    id="edit-province"
+                    required
+                />
+            </div>
+            <div></div>
+            <button type="submit">Lưu</button>
+            <button
+                type="button"
+                onclick="document.getElementById('edit-address-modal').style.display='none'"
+            >
+                Hủy
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditModal(home_number, street, district, city, province) {
+        document.getElementById("edit-old-home-number").value = home_number;
+        document.getElementById("edit-old-street").value = street;
+        document.getElementById("edit-old-district").value = district;
+        document.getElementById("edit-old-city").value = city;
+        document.getElementById("edit-old-province").value = province;
+
+        document.getElementById("edit-home-number").value = home_number;
+        document.getElementById("edit-street").value = street;
+        document.getElementById("edit-district").value = district;
+        document.getElementById("edit-city").value = city;
+        document.getElementById("edit-province").value = province;
+
+        document.getElementById("edit-address-modal").style.display = "block";
+    }
+</script>
 {% endblock %}

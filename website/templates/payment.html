@@ -1,12 +1,11 @@
-{% extends "base.html" %} {% block title %}Payment Form{% endblock %} {% block
+{% extends "base.html" %} {% block title %}Thanh Toán{% endblock %} {% block
 extra_css %}
-<link 
+<link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 />
-    <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 {% endblock %} {% block content %}
-
 
 <body class="bg-gray-100 min-h-screen">
     <header class="bg-white shadow-lg p-4 sticky top-0 z-10">
@@ -16,141 +15,211 @@ extra_css %}
     </header>
 
     <main class="max-w-4xl mx-auto p-6">
-        <!-- Personal Information Section -->
-        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
-                <i class="fas fa-user mr-2 text-blue-500"></i>Thông Tin Cá Nhân
-            </h2>
-            <form>
+        <form method="POST" action="{{ url_for('views.payment') }}">
+            <!-- Personal Information Section -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
+                    <i class="fas fa-user mr-2 text-blue-500"></i>Thông Tin Cá
+                    Nhân
+                </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-600">Họ và Tên</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                        <label class="block font-medium mb-1 text-gray-600"
+                            >Họ và Tên</label
+                        >
+                        <input
+                            type="text"
+                            class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                            value="{{ user_info.first_name }} {{ user_info.last_name }}"
+                            disabled
+                        />
                     </div>
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-600">Số điện thoại</label>
-                        <input type="tel" class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                        <label class="block font-medium mb-1 text-gray-600"
+                            >Số điện thoại</label
+                        >
+                        <input
+                            type="tel"
+                            class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                            value="{{ user_info.phone_number }}"
+                            disabled
+                        />
                     </div>
                 </div>
-            </form>
-        </section>
+            </section>
 
-        <!-- Address Section with Select -->
-        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
-                <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Địa chỉ người nhận
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Địa chỉ cụ thể -->
-                <div class="form-group col-span-2">
-                    <label for="address" class="block text-gray-600 font-medium mb-2">Địa chỉ cụ thể:</label>
-                    <input type="text" id="address" name="address" class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
-            </div>
-        </section>
-
-        <!-- Product Information Display -->
-        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
-                <i class="fas fa-shopping-bag mr-2 text-blue-500"></i>Đơn của bạn
-            </h2>
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="p-3 text-left text-gray-600">Sản phẩm</th>
-                            <th class="p-3 text-right text-gray-600">Giá</th>
-                            <th class="p-3 text-right text-gray-600">Số lượng</th>
-                            <th class="p-3 text-right text-gray-600">Tổng giá</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-16 h-16 mr-4 rounded object-cover">
-                                    <div>
-                                        <div class="font-medium">Wireless Headphones</div>
-                                        <div class="text-sm text-gray-500">Color: Black</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-3 text-right">$99.99</td>
-                            <td class="p-3 text-right">1</td>
-                            <td class="p-3 text-right font-medium">$99.99</td>
-                        </tr>
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3">
-                                <div class="flex items-center">
-                                    <img src="https://images.pexels.com/photos/341523/pexels-photo-341523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-16 h-16 mr-4 rounded object-cover">
-                                    <div>
-                                        <div class="font-medium">Smart Watch</div>
-                                        <div class="text-sm text-gray-500">Model: X200</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="p-3 text-right">$199.99</td>
-                            <td class="p-3 text-right">2</td>
-                            <td class="p-3 text-right font-medium">$399.98</td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="bg-gray-50">
-                        <tr>
-                            <td colspan="3" class="p-3 text-right font-bold">Tổng thanh toán</td>
-                            <td class="p-3 text-right font-bold">$499.97</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="p-3 text-right font-bold">Phí vận chuyển</td>
-                            <td class="p-3 text-right font-bold">$5.99</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="p-3 text-right font-bold text-lg">Giảm giá</td>
-                            <td class="p-3 text-right font-bold">$10</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" class="p-3 text-right font-bold text-lg">Tổng Đơn</td>
-                            <td class="p-3 text-right font-bold text-lg text-blue-600">$495.96</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </section>
-
-        <!-- Payment Method Section -->
-        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
-                <i class="fas fa-credit-card mr-2 text-blue-500"></i>Phương thức thanh toán
-            </h2>
-            <div class="space-y-4">
-                <div class="flex items-center p-3 border rounded hover:border-blue-500">
-                    <input type="radio" id="Banking" name="payment" class="mr-3">
-                    <label for="Banking" class="flex-1">
-                        <div class="font-medium">Chuyển khoảng</div>
-                        <div class="text-sm text-gray-500">Thanh toán với thẻ ngân hàng của bạn</div>
-                    </label>
+            <!-- Address Section -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
+                    <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Địa
+                    chỉ người nhận
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="form-group col-span-2">
+                        <label
+                            for="address"
+                            class="block text-gray-600 font-medium mb-2"
+                            >Địa chỉ cụ thể:</label
+                        >
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            class="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                            value="{% if default_address %}{{ default_address.home_number }}, {{ default_address.street }}, {{ default_address.district }}, {{ default_address.city }}, {{ default_address.province }}{% else %}Chưa có địa chỉ mặc định{% endif %}"
+                            disabled
+                        />
+                    </div>
                 </div>
-                <div class="flex items-center p-3 border rounded hover:border-blue-500">
-                    <input type="radio" id="ShipCod" name="payment" class="mr-3">
-                    <label for="ShipCod" class="flex-1">
-                        <div class="font-medium">Thanh toán khi nhận hàng</div>
-                        <div class="text-sm text-gray-500"></div>
-                    </label>
+            </section>
+
+            <!-- Product Information Display -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
+                    <i class="fas fa-shopping-bag mr-2 text-blue-500"></i>Đơn
+                    của bạn
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 text-left text-gray-600">
+                                    Sản phẩm
+                                </th>
+                                <th class="p-3 text-right text-gray-600">
+                                    Giá
+                                </th>
+                                <th class="p-3 text-right text-gray-600">
+                                    Số lượng
+                                </th>
+                                <th class="p-3 text-right text-gray-600">
+                                    Tổng giá
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-3">
+                                    <div class="flex items-center">
+                                        <img
+                                            src="{{ url_for('static', filename='images/default.png') or item.image }}"
+                                            alt="{{ item.name }}"
+                                            class="w-16 h-16 mr-4 rounded object-cover"
+                                        />
+                                        <div>
+                                            <div class="font-medium">
+                                                {{ item.name }}
+                                            </div>
+                                            <div class="text-sm text-gray-500">
+                                                {{ item.color }}, {{ item.size
+                                                }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-3 text-right">
+                                    {{ "{:,.0f}".format(item.price) }} VNĐ
+                                </td>
+                                <td class="p-3 text-right">
+                                    {{ item.quantity }}
+                                </td>
+                                <td class="p-3 text-right font-medium">
+                                    {{ "{:,.0f}".format(item.total_money) }} VNĐ
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="bg-gray-50">
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    class="p-3 text-right font-bold"
+                                >
+                                    Tổng thanh toán
+                                </td>
+                                <td class="p-3 text-right font-bold">
+                                    {{ "{:,.0f}".format(total_money) }} VNĐ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    class="p-3 text-right font-bold"
+                                >
+                                    Phí vận chuyển
+                                </td>
+                                <td class="p-3 text-right font-bold">
+                                    30,000 VNĐ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    class="p-3 text-right font-bold text-lg"
+                                >
+                                    Tổng Đơn
+                                </td>
+                                <td
+                                    class="p-3 text-right font-bold text-lg text-blue-600"
+                                >
+                                    {{ "{:,.0f}".format(total_money + 30000) }}
+                                    VNĐ
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Payment Method Section -->
+            <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-lg font-bold mb-4 text-gray-700 border-b pb-2">
+                    <i class="fas fa-credit-card mr-2 text-blue-500"></i>Phương
+                    thức thanh toán
+                </h2>
+                <div class="space-y-4">
+                    <div
+                        class="flex items-center p-3 border rounded hover:border-blue-500"
+                    >
+                        <input
+                            type="radio"
+                            id="ShipCod"
+                            name="payment"
+                            value="ShipCod"
+                            class="mr-3"
+                            checked
+                        />
+                        <label for="ShipCod" class="flex-1">
+                            <div class="font-medium">
+                                Thanh toán khi nhận hàng
+                            </div>
+                            <div class="text-sm text-gray-500"></div>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer with Submit Button -->
+            <footer class="bg-white shadow-lg p-4 sticky bottom-0 z-10">
+                <div
+                    class="max-w-4xl mx-auto flex justify-between items-center"
+                >
+                    <div class="text-gray-600">
+                        <div class="font-medium">Tổng giá:</div>
+                        <div class="text-2xl font-bold text-blue-600">
+                            {{ "{:,.0f}".format(total_money + 30000) }} VNĐ
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition flex items-center"
+                    >
+                        <i class="fas fa-lock mr-2"></i>Hoàn tất thanh toán
+                    </button>
+                </div>
+            </footer>
+        </form>
     </main>
-
-    <footer class="bg-white shadow-lg p-4 sticky bottom-0 z-10">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <div class="text-gray-600">
-                <div class="font-medium">Tổng giá:</div>
-                <div class="text-2xl font-bold text-blue-600">$505.96</div>
-            </div>
-            <button class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition flex items-center">
-                <a href="{{ url_for('home') }}">
-                    <i class="fas fa-lock mr-2"></i>Hoàn tất thanh toán
-                </a>
-            </button>
-        </div>
-    </footer>
 </body>
 {% endblock %}

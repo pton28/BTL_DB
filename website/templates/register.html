@@ -35,21 +35,21 @@
             <h2>Đăng Ký</h2>
             <form action="{{ url_for('auth.register') }}" method="POST">
                 <div class="form-group form-group-half">
-                    <label for="last_name">Họ</label>
+                    <label for="first_name">Họ</label>
                     <input
                         type="text"
-                        id="lastname"
-                        name="last_name"
+                        id="firstname"
+                        name="first_name"
                         placeholder="Nhập họ"
                         required
                     />
                 </div>
                 <div class="form-group form-group-half">
-                    <label for="first_name">Tên</label>
+                    <label for="last_name">Tên</label>
                     <input
                         type="text"
-                        id="firstname"
-                        name="first_name"
+                        id="lastname"
+                        name="last_name"
                         placeholder="Nhập tên"
                         required
                     />

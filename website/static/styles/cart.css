@@ -1,103 +1,99 @@
-.cart-section {
-    width: 80%;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.cart-price {
-    text-align: left;
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-    text-align: left;
-}
-
-.cart-row {
+.header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
 }
 
-.cart-item {
-    display: flex;
-    align-items: center;
-    max-width: 200px;
-    overflow: hidden;
+.header-back-icon {
+    margin-right: 0.5rem;
 }
 
-.cart-item-image {
-    margin-right: 15px;
-    object-fit: cover;
-}
-
-
-.cart-total {
-    display: flex;
-    text-align: right;
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-.cart-item-title {
-    max-width: 150px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
-    white-space: normal;
-}
-.cart-total-price {
-    font-size: 20px;
-}
-
-.cart-quantity input {
-    width: 60px;
-    padding: 5px;
+.header-title {
+    font-size: 1.25rem;
+    font-weight: bold;
     text-align: center;
-    font-size: 14px;
+    color: #2563eb;
+    flex: 1;
 }
 
-.btn-danger {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
+.container {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 40px;
 }
-
-.btn-danger:hover {
-    background-color: darkred;
+table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
 }
-
-.cart-buttons{
-    display: flex;
-    gap: 10px;
-    margin-left: auto;
+th,
+td {
+    padding: 8px;
 }
-
-.custom-button {
-    padding: 0.75rem 2rem; /* px-8 py-3 */
-    background-color: #2563eb; /* bg-blue-600 */
-    color: white;
-    border-radius: 0.5rem; /* rounded-lg */
-    transition: background-color 0.3s, box-shadow 0.3s; /* transition */
+th {
+    font-weight: bold;
+}
+tr.border-t {
+    border-top: 1px solid #e5e7eb;
+}
+.product-info {
     display: flex;
     align-items: center;
-    margin-left: auto;
+}
+.product-info img {
+    width: 50px;
+    height: 50px;
+    margin-right: 16px;
+}
+.product-info div {
+    display: flex;
+    flex-direction: column;
+}
+.product-info .text-gray-500 {
+    color: #6b7280;
+}
+.button-red {
+    background-color: #ef4444;
+    color: white;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.button-blue {
+    background-color: #3b82f6;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.total {
+    border-top: 1px solid #e5e7eb;
+    margin-top: 16px;
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total .text-lg {
+    font-size: 1.125rem;
+    font-weight: 600;
 }
 
-.custom-button:hover {
-    background-color: #1d4ed8; /* hover:bg-blue-700 */
-}
-
-.custom-button:focus {
-    outline: 2px solid #3b82f6; /* focus:ring-blue-500 with outline */
-    outline-offset: 2px; /* Same effect as focus:ring-offset-2 */
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Simulate a ring with box-shadow */
+.total .button-blue {
+    margin-right: 50px;
 }

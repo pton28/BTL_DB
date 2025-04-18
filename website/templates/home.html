@@ -6,30 +6,8 @@ extra_css %}
 />
 {% endblock %} {% block content %}
 
-<!-- <p>Nguyen Thanh Trinh</p> -->
-<!-- Banner chính -->
 <section class="banner"></section>
 
-<!-- <section class="products">
-    <div class="product-list">
-        {% for product in products %}
-        <div class="product-item">
-            <img
-                src="{{ product.image or url_for('static', filename='images/default.jpg') }}"
-                alt="{{ product.name }}"
-            />
-            <h3>{{ product.name }}</h3>
-            <p>Giá: {{ product.price }} VNĐ</p>
-            <a
-                href="{{ url_for('views.product_detail', product_id=product.id) }}"
-                class="buy-button"
-            >
-                Xem Chi Tiết
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-</section> -->
 <div class="container">
     <div class="flex">
         <!-- Sidebar -->
@@ -58,18 +36,6 @@ extra_css %}
                         <input id="dell" type="checkbox" />
                         <label for="dell"> Dell </label>
                     </li>
-                    <li>
-                        <input id="northbayou" type="checkbox" />
-                        <label for="northbayou"> North Bayou </label>
-                    </li>
-                    <li>
-                        <input id="lenovo" type="checkbox" />
-                        <label for="lenovo"> Lenovo </label>
-                    </li>
-                    <li>
-                        <input id="oem" type="checkbox" />
-                        <label for="oem"> OEM </label>
-                    </li>
                 </ul>
             </div>
 
@@ -95,8 +61,9 @@ extra_css %}
                         />
                         <div class="mt-2">
                             <h3>{{ product.name }}</h3>
-                            <p class="price">{{ product.price }} VNĐ</p>
-                            <p class="rating">5.0 ⭐</p>
+                            <p class="price">
+                                {{ "{:,.0f}".format(product.price) }} VNĐ
+                            </p>
                         </div>
                     </a>
                 </div>

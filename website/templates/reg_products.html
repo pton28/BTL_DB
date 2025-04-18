@@ -1,43 +1,63 @@
-{% extends "base.html" %} {% block title %}Trang Bán Hàng{% endblock %} {% block
-extra_css %}
-<link
-    rel="stylesheet"
-    href="{{ url_for('static', filename='styles/reg_products.css') }}"
-/>
+{% extends "base.html" %}
+{% block title %}Đăng Ký Sản Phẩm{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/reg_products.css') }}" />
 <script src="https://cdn.tailwindcss.com"></script>
-{% endblock %} {% block content %}
+{% endblock %}
+{% block content %}
 <div class="container">
-    <!-- Bảng Thêm Sản Phẩm -->
+    <!-- Form Thêm Sản Phẩm -->
     <h2 class="text-xl font-bold text-center mb-6">Thêm Sản Phẩm</h2>
-    <div class="overflow-x-auto">
-        <form method="POST" action="{{ url_for('views.reg_products') }}">
-            <table class="min-w-full bg-white rounded-lg shadow-md">
-                <thead>
-                    <tr class="bg-blue-600 text-white">
-                        <th class="py-3 px-4 text-left">Sản Phẩm</th>
-                        <th class="py-3 px-4 text-left">Mô Tả</th>
-                        <th class="py-3 px-4 text-left">Giá</th>
-                        <th class="py-3 px-4 text-left">Lựa Chọn Màu Sắc</th>
-                        <th class="py-3 px-4 text-left">Size Áo</th>
-                        <th class="py-3 px-4 text-left">Số Lượng</th>
-                        <th class="py-3 px-4 text-left"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="py-3 px-4"><input type="text" name="product_name" class="w-full p-1 border rounded-md" placeholder="Tên sản phẩm" /></td>
-                        <td class="py-3 px-4"><input type="text" name="description" class="w-full p-1 border rounded-md" placeholder="Mô tả" /></td>
-                        <td class="py-3 px-4"><input type="text" name="price" class="w-full p-1 border rounded-md" placeholder="Giá" /></td>
-                        <td class="py-3 px-4"><input type="text" name="color" class="w-full p-1 border rounded-md" placeholder="Màu sắc" /></td>
-                        <td class="py-3 px-4"><input type="text" name="size" class="w-full p-1 border rounded-md" placeholder="Size áo" /></td>
-                        <td class="py-3 px-4"><input type="text" name="quantity" class="w-full p-1 border rounded-md" placeholder="Số lượng" /></td>
-                        <td class="py-3 px-4">
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm Sản Phẩm</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
+    <form method="POST" action="{{ url_for('views.reg_products') }}" enctype="multipart/form-data">
+        <div class="form-container">
+            <!-- Khung ảnh bên trái -->
+            <div class="image-upload">
+                <input type="file" id="product_image" name="product_image" accept="image/*" />
+            </div>
+            <!-- Các trường thuộc tính bên phải -->
+            <div class="form-fields">
+                <div class="form-group">
+                    <label for="product_name">Sản Phẩm</label>
+                    <input type="text" id="product_name" name="product_name" placeholder="Tên sản phẩm" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Mô Tả</label>
+                    <input type="text" id="description" name="description" placeholder="Mô tả" />
+                </div>
+                <div class="form-group">
+                    <label for="category">Phân Loại</label>
+                    <select id="category" name="category">
+                        <option value="">Chọn phân loại</option>
+                        <option value="shirt">Áo</option>
+                        <option value="pants">Quần</option>
+                        <option value="accessory">Phụ Kiện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price">Giá</label>
+                    <input type="text" id="price" name="price" placeholder="Giá" />
+                </div>
+                <div class="form-group">
+                    <label for="color">Lựa Chọn Màu Sắc</label>
+                    <input type="text" id="color" name="color" placeholder="Màu sắc" />
+                </div>
+                <div class="form-group">
+                    <label for="size">Size</label>
+                    <select id="size" name="size">
+                        <option value="">Chọn size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Số Lượng</label>
+                    <input type="text" id="quantity" name="quantity" placeholder="Số lượng" />
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm Sản Phẩm</button>
+    </form>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 /* Banner */
 .banner {
     background: url("../images/banner.jpg") no-repeat center center/cover;
-    height: 700px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,7 +11,7 @@
 }
 
 .container {
-    max-width: 1700px;
+    max-width: 1400px;
     margin: 60px auto;
     padding: 16px;
 }
@@ -55,19 +55,10 @@
 }
 .grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 16px;
 }
-@media (min-width: 640px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-@media (min-width: 1024px) {
-    .grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
+
 .product-card {
     background-color: #fff;
     padding: 16px;
@@ -88,6 +79,7 @@
     font-size: 16px;
     font-weight: bold;
     margin: 8px 0;
+    color: #1d4ed8;
 }
 .product-card p {
     margin: 4px 0;

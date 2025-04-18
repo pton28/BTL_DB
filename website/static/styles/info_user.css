@@ -103,6 +103,7 @@
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .address-item h3 {
     font-size: 1rem;
@@ -150,4 +151,56 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.modal-content form {
+    display: grid;
+    grid-template-columns: 170px 1fr; /* Nhãn 120px, ô nhập liệu chiếm phần còn lại */
+    gap: 10px 20px; /* Khoảng cách giữa các hàng và cột */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+.modal-content label {
+    color: #333;
+    font-weight: 500;
+}
+.modal-content input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+}
+.modal-content .checkbox-row {
+    display: flex;
+    align-items: center;
+    grid-column: span 2; /* Chiếm cả 2 cột */
+}
+.modal-content .button-row {
+    grid-column: span 2; /* Chiếm cả 2 cột */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Khoảng cách giữa các nút */
+    margin-top: 10px;
+}
+.modal-content button[type="submit"] {
+    background-color: #1a73e8; /* Màu xanh lá cây */
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button[type="submit"]:hover {
+    background-color: blue; /* Màu xanh đậm hơn khi hover */
+}
+.modal-content button[type="button"] {
+    background-color: #6c757d; /* Màu xám cho nút Hủy */
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.modal-content button[type="button"]:hover {
+    background-color: #5a6268; /* Màu xám đậm hơn khi hover */
 }
