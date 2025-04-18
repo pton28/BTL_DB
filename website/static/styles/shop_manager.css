@@ -1,80 +1,175 @@
-.cart-section {
-    width: 80%;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/* Container Styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Body Background */
+body.bg-gray-100 {
+    background-color: #f3f4f6;
+}
+
+/* Card Styling */
+.bg-white {
+    background-color: #ffffff;
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
 }
 
-.cart-price {
+/* Heading Styling */
+.text-xl {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+/* Button Styling */
+.bg-blue-500 {
+    background-color: #3b82f6;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.bg-blue-500:hover {
+    background-color: #2563eb;
+}
+
+.bg-blue-500:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.bg-red-500 {
+    background-color: #ef4444;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.bg-red-500:hover {
+    background-color: #dc2626;
+}
+
+.bg-red-500:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+}
+
+/* Table Styling */
+table.w-full {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    padding-bottom: 0.75rem;
     text-align: left;
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-    text-align: left;
 }
 
-.cart-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid #eaeaea;
+td {
+    padding: 1rem 0;
+    font-size: 0.875rem;
+    color: #1f2937;
 }
 
-.cart-item {
-    display: flex;
-    align-items: center;
-    max-width: 200px;
-    overflow: hidden;
+.border-t {
+    border-top: 1px solid #e5e7eb;
 }
 
-.cart-item-image {
-    margin-right: 15px;
+/* Image Styling */
+.w-30 {
+    width: 50px;
+    height: 50px;
     object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
 }
 
-.cart-item-title {
-    max-width: 150px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
-    white-space: normal;
+/* Flex Styling */
+.flex {
+    display: flex;
 }
 
-.cart-quantity input {
-    width: 60px;
-    padding: 5px;
+.items-center {
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+/* Input and Select Styling */
+select, input[type="number"] {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    color: #1f2937;
+    background-color: #fff;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+select:focus, input[type="number"]:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+input[type="number"].w-12 {
+    width: 3rem;
     text-align: center;
-    font-size: 14px;
 }
 
-.btn-danger {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
+/* Paragraph Styling */
+p.mb-4 {
+    margin-bottom: 1rem;
+    color: #4b5563;
+    font-size: 0.875rem;
 }
 
-.btn-danger:hover {
-    background-color: darkred;
+/* Link Styling */
+a.bg-blue-500 {
+    display: inline-block;
+    text-decoration: none;
 }
 
-.btn.btn-primary.btn-purchase {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
 
-.btn.btn-primary.btn-purchase:hover {
-    background-color: #218838;
+    .text-xl {
+        font-size: 1.125rem;
+    }
+
+    th, td {
+        font-size: 0.75rem;
+    }
+
+    .w-30 {
+        width: 40px;
+        height: 40px;
+    }
+
+    select, input[type="number"] {
+        font-size: 0.75rem;
+    }
 }

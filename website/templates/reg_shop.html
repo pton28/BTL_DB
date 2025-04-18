@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block title %}Đăng Ký Shop{% endblock %} {% block
+extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/reg_shop.css') }}"
+/>
+<script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}{% block content %}
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-4">
+                    {% for category, message in messages %}
+                        <div class="p-3 rounded mb-2
+                            {% if category == 'success' %}
+                                bg-green-200 text-green-800
+                            {% elif category == 'error' %}
+                                bg-red-200 text-red-800
+                            {% else %}
+                                bg-gray-200 text-gray-800
+                            {% endif %}
+                        ">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <h2 class="text-2xl font-bold">Đăng Ký Cửa Hàng Mới</h2>
+        <form method="POST" class="mt-4">
+            <div class="mb-4">
+                <label for="name" class="block">Tên Cửa Hàng</label>
+                <input type="text" id="name" name="name" class="w-full p-2 border border-gray-300 rounded" required />
+            </div>
+            <div class="mb-4">
+                <label for="phone_number" class="block">Mã số thuế</label>
+                <input type="text" id="tax" name="tax_number" class="w-full p-2 border border-gray-300 rounded" required />
+            </div>
+            <div class="mb-4">
+                <label for="address" class="block">Địa Chỉ</label>
+                <input type="text" id="address" name="address" class="w-full p-2 border border-gray-300 rounded" required />
+            </div>
+            <div class="mb-4">
+                <label for="phone_number" class="block">Số Điện Thoại</label>
+                <input type="text" id="phone_number" name="phone_number" class="w-full p-2 border border-gray-300 rounded" required />
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Đăng Ký Cửa Hàng</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

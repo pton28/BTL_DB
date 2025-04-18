@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %}Trang Bán Hàng{% endblock %} {% block
+extra_css %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles/reg_products.css') }}"
+/>
+<script src="https://cdn.tailwindcss.com"></script>
+{% endblock %} {% block content %}
+<div class="container">
+    <!-- Bảng Thêm Sản Phẩm -->
+    <h2 class="text-xl font-bold text-center mb-6">Thêm Sản Phẩm</h2>
+    <div class="overflow-x-auto">
+        <form method="POST" action="{{ url_for('views.reg_products') }}">
+            <table class="min-w-full bg-white rounded-lg shadow-md">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="py-3 px-4 text-left">Sản Phẩm</th>
+                        <th class="py-3 px-4 text-left">Mô Tả</th>
+                        <th class="py-3 px-4 text-left">Giá</th>
+                        <th class="py-3 px-4 text-left">Lựa Chọn Màu Sắc</th>
+                        <th class="py-3 px-4 text-left">Size Áo</th>
+                        <th class="py-3 px-4 text-left">Số Lượng</th>
+                        <th class="py-3 px-4 text-left"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-3 px-4"><input type="text" name="product_name" class="w-full p-1 border rounded-md" placeholder="Tên sản phẩm" /></td>
+                        <td class="py-3 px-4"><input type="text" name="description" class="w-full p-1 border rounded-md" placeholder="Mô tả" /></td>
+                        <td class="py-3 px-4"><input type="text" name="price" class="w-full p-1 border rounded-md" placeholder="Giá" /></td>
+                        <td class="py-3 px-4"><input type="text" name="color" class="w-full p-1 border rounded-md" placeholder="Màu sắc" /></td>
+                        <td class="py-3 px-4"><input type="text" name="size" class="w-full p-1 border rounded-md" placeholder="Size áo" /></td>
+                        <td class="py-3 px-4"><input type="text" name="quantity" class="w-full p-1 border rounded-md" placeholder="Số lượng" /></td>
+                        <td class="py-3 px-4">
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm Sản Phẩm</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+{% endblock %}

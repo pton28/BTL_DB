@@ -141,6 +141,36 @@ def get_products():
     finally:
         close_db_connection(conn, cur)
 
+# Hàm lấy sản phẩm theo UserID
+def get_products_by_userid(user_id):
+    conn = get_db_connection()
+    if not conn:
+        return None
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT ShopID FROM shop WHERE UserID = %s", (user_id,))
+        shop = cur.fetchone()
+        if not shop:
+            return None
+
+        shop_id = shop['shopid']
+
+        cur.execute("""
+            SELECT p.ProductID, p.Description AS name, pv.Price AS price,
+                   (SELECT pi.Images FROM PRODUCT_IMAGES pi WHERE pi.ProductID = p.ProductID LIMIT 1) AS image
+            FROM PRODUCT p
+            LEFT JOIN PRODUCT_VARIANT pv ON p.ProductID = pv.ProductID
+            WHERE p.ShopID = %s AND pv.StockQuantity > 0
+        """, (shop_id,))
+
+        products = cur.fetchall()
+        return products
+    except Exception as e:
+        print(f"Error fetching producst: {e}")
+        return []
+    finally:
+        close_db_connection(conn, cur)
+
 # Hàm lấy sản phẩm theo ID (đã có từ trước, giữ nguyên)
 def get_product_by_id(product_id):
     conn = get_db_connection()
@@ -154,7 +184,65 @@ def get_product_by_id(product_id):
     finally:
         close_db_connection(conn, cur)
 
-# # Hàm tạo đơn hàng (đã có từ trước, giữ nguyên)
+# Hàm truy xuất shop của UserID 
+def get_shop_by_user_id(user_id):
+    conn = get_db_connection()
+    if not conn:
+        return None
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM shop WHERE userid = %s", (user_id,))
+        shop = cur.fetchone()
+        
+        if shop:
+            return shop
+        return None
+    finally:
+        close_db_connection(conn, cur)
+
+# Đăng ký shop cho UserID chưa có shop
+def reg_shop(user_id, name, address, income, tax_number, phone_num):
+    conn = get_db_connection()
+    if not conn:
+        return None
+    try:
+        cur = conn.cursor()
+        cur.execute(
+            """
+            INSERT INTO VOUCHER_CREATOR
+            DEFAULT VALUES RETURNING creatorid; 
+            """
+        )
+        creator_id = cur.fetchone()['creatorid']
+
+        cur.execute(
+            """
+            INSERT INTO VENDER (UserID, Income, TaxNumber, CreatorId)
+            VALUES (%s, %s, %s, %s) RETURNING UserID
+            """, 
+            (user_id, income, tax_number, creator_id)
+        )
+        vender_user_id = cur.fetchone()['userid']
+
+        cur.execute(
+            """
+            INSERT INTO shop (Address, PhoneNumber, "Name", UserID) 
+            VALUES (%s, %s, %s, %s) RETURNING ShopID
+            """,
+            (address, phone_num, name, vender_user_id)
+        )
+        shop_id = cur.fetchone()['shopid'] 
+
+        conn.commit()
+        return shop_id
+    except Exception as e:
+        print(f"Gặp lỗi khi đăng ký {e}")
+        conn.rollback()
+        return None
+    finally:
+        close_db_connection(conn, cur)
+        
+# Hàm tạo đơn hàng (đã có từ trước, giữ nguyên)
 # def create_order(user_id):
 #     conn = get_db_connection()
 #     if not conn:

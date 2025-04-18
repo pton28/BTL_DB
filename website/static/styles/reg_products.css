@@ -1,0 +1,36 @@
+/* Custom styles for reg_products.html */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+thead th {
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+button {
+    transition: background-color 0.2s ease-in-out;
+}
+
+input {
+    transition: border-color 0.2s ease-in-out;
+}
+
+input:focus {
+    border-color: #1a73e8;
+}
